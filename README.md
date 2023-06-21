@@ -32,6 +32,20 @@ Preencha nomes aqui
 
 #### Tecnologias
 
+https://nodejs.org/
+https://vuejs.org/
+https://vuetifyjs.com
+https://vite-pwa-org.netlify.app
+https://developer.chrome.com/docs/workbox/
+https://www.typescriptlang.org/
+https://www.openstreetmap.org/
+https://leafletjs.com
+
+https://pinia.vuejs.org
+https://vitest.dev/
+https://www.cypress.io/
+https://sass-lang.com/
+
 Preencha aqui uma lista detalhada de tecnologias usadas para frontend, backend e persistência de dados
 
 #### Ambiente de desenvolvimento
@@ -50,7 +64,10 @@ Preencha aqui uma lista detalhada de recursos aproveitados no projeto, por exemp
 
 Preencha aqui um breve relato dos bastidores e das particularidades do desenvolvimento do projeto, por exemplo: escolha do tema, algum detalhe marcante sobre as tecnologias usadas/aprendidas, bugs encontrados, alguma parte mais trabalhosa de implementar, etc.
 
-
+https://datatracker.ietf.org/doc/html/rfc7946
+https://github.com/bmcbride/gps-map
+https://www.npmjs.com/package/leaflet.offline
+https://www.npmjs.com/package/@yaga/leaflet-cached-tile-layer
 
 ---
 Projeto entregue para a disciplina de [Desenvolvimento de Software para a Web](http://github.com/andreainfufsm/elc1090-2023a) em 2023a
