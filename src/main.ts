@@ -11,7 +11,7 @@ import * as directives from 'vuetify/directives'
 
 import './main.scss'
 
-import App from './App.vue'
+import App from '@/App.vue'
 import router from './router'
 
 const vuetify = createVuetify({
