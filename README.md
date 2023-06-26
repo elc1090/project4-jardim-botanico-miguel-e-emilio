@@ -18,6 +18,8 @@ Preencha aqui uma descrição sucinta do projeto (tema e funcionalidades)
 
 #### Deploy
 
+https://docs.google.com/spreadsheets/d/1lNiJ6a0eHgeTUdoVdxou6qfQG5yHZpQzQbkooMeNb94/edit#gid=0
+
 Preencha aqui a URL para acesso ao projeto publicado
 
 #### Testes
