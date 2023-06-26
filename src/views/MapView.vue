@@ -13,8 +13,7 @@ import {
 import { LatLngBounds } from "leaflet"
 import type { PointExpression, LatLngTuple } from "leaflet"
 import type { FeatureCollection } from "geojson"
-import { GoogleSpreadsheet } from "google-spreadsheet"
-import { ref, onMounted, onBeforeMount, computed } from "vue";
+import { ref, onBeforeMount, computed } from "vue";
 import "leaflet/dist/leaflet.css"
 import axios from "axios"
 
