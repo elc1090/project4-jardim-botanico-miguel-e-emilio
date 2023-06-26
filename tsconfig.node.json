@@ -6,7 +6,8 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-    "manifest.pwa.*"
+    "manifest.pwa.*",
+    "runtime.caching.pwa.*"
   ],
   "compilerOptions": {
     "composite": true,
