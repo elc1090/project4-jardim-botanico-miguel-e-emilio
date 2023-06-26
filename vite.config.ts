@@ -7,6 +7,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 import vuetify from "vite-plugin-vuetify";
 import manifest from './manifest.pwa';
+import runtimeCaching from './runtime.caching.pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -25,6 +26,7 @@ export default defineConfig({
         enabled: true
       },
       workbox: {
+        runtimeCaching,
         sourcemap: true,
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json,vue,txt,woff2}']
       }
