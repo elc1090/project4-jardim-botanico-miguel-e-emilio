@@ -12,7 +12,7 @@ on:
 env:
   VITE_GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
   VITE_SHEET_ID: ${{ vars.VITE_SHEET_ID }}
-#  BASE_URL: "/project4-jardim-botanico-miguel-e-emilio"
+  BASE_URL: "/project4-jardim-botanico-miguel-e-emilio"
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
