@@ -6,12 +6,10 @@ import {
   LTileLayer,
   LControlLayers,
   LMarker,
-  LPopup,
   LTooltip,
-  LRectangle,
 } from "@vue-leaflet/vue-leaflet"
 import { LatLngBounds } from "leaflet"
-import type { PointExpression, LatLngTuple } from "leaflet"
+import type { PointExpression } from "leaflet"
 import type { FeatureCollection } from "geojson"
 import { ref, onBeforeMount, computed } from "vue";
 import "leaflet/dist/leaflet.css"
@@ -49,14 +47,14 @@ const goejson= ref<FeatureCollection>({
   features: []
 })
 
-const markers = ref([])
+const markers = ref<Array<any>>([])
 
 
 onBeforeMount(async() => {
   const sheet_id = import.meta.env.VITE_SHEET_ID
   const api_key = import.meta.env.VITE_GOOGLE_API_KEY
-  const res = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${sheet_id}/values:batchGet?ranges=Markers!A2:D100&valueRenderOption=FORMATTED_VALUE&key=${api_key}`)
-  res.data.valueRanges[0].values.forEach((point) => {
+  const res = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${sheet_id}/values:batchGet?ranges=Markers!A2:D100&valueRenderOption=UNFORMATTED_VALUE&key=${api_key}`)
+  res.data.valueRanges[0].values.forEach((point: Array<any>) => {
     log(point)
     markers.value.push({
       latLng: [ point[0], point[1] ],
@@ -81,7 +79,6 @@ onBeforeMount(async() => {
 
       <l-tile-layer
           v-for="provider in tileProvider"
-          :key="provider.key"
           :name="provider.name"
           :visible="provider.visible"
           :url="provider.url"
