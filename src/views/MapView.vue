@@ -12,6 +12,7 @@ import { LatLngBounds } from "leaflet"
 import type { PointExpression } from "leaflet"
 import type { FeatureCollection } from "geojson"
 import { ref, onBeforeMount, computed } from "vue";
+import { useStorage } from "@vueuse/core";
 import "leaflet/dist/leaflet.css"
 import axios from "axios"
 import type {Marker, TileProvider} from "../../env";
@@ -48,21 +49,28 @@ const goejson= ref<FeatureCollection>({
   features: []
 })
 
-const markers = ref<Array<any>>([])
+const markers = useStorage<Marker[]>('markers', [])
 
-
-onBeforeMount(async() => {
+const collectMarkers = async () => {
   const sheet_id = import.meta.env.VITE_SHEET_ID
   const api_key = import.meta.env.VITE_GOOGLE_API_KEY
-  const res = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${sheet_id}/values:batchGet?ranges=Markers!A2:D100&valueRenderOption=UNFORMATTED_VALUE&key=${api_key}`)
-  res.data.valueRanges[0].values.forEach((point: Array<any>) => {
-    log(point)
-    markers.value.push({
-      latLng: [ point[0], point[1] ],
-      iconUrl: point[2],
-      text: point[3],
+  axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${sheet_id}/values:batchGet?ranges=Markers!A2:D100&valueRenderOption=UNFORMATTED_VALUE&key=${api_key}`).then((res) => {
+    let data: Marker[] = []
+    res.data.valueRanges[0].values.forEach((point: any[], index: number) => {
+      data.push({
+        latLng: [ point[0], point[1] ],
+        iconUrl: point[2],
+        text: point[3],
+      })
     })
+    markers.value = data
+  }, () => {}).finally(() => {
+    setTimeout(collectMarkers, 10000)
   })
+}
+
+onBeforeMount(() => {
+  collectMarkers()
 })
 
 </script>
