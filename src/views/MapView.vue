@@ -14,6 +14,7 @@ import type { FeatureCollection } from "geojson"
 import { ref, onBeforeMount, computed } from "vue";
 import "leaflet/dist/leaflet.css"
 import axios from "axios"
+import type {Marker, TileProvider} from "../../env";
 
 const map = ref()
 const zoom = ref(17)
@@ -28,7 +29,7 @@ const iconSize = computed(():PointExpression => [iconWidth.value, iconHeight.val
 
 const log = (a: any) => console.log(a)
 
-const tileProvider = ref([{
+const tileProvider = ref<TileProvider[]>([{
     url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png",
     attribution: '&copy; <a target="_blank" href="https://osm.org/copyright">OpenStreetMap</a> contributors',
     visible: true,
