@@ -1,35 +1,26 @@
-# Preencha aqui o título do projeto
-
-> 1. Baixe este arquivo e edite o texto em formato Markdown conforme as instruções a seguir.
-> 2. Substitua todos os blocos "Preencha aqui" por informações do seu projeto. 
-> 3. Substitua a imagem por pelo menos um screenshot do projeto (arquivo pode ser armazenado no repositório ou em URL externa). GIFs animados também são permitidos!
-> 4. Remova todas as instruções de entrega.
-> 5. Double-check: Certifique-se de que seu README.md não contenha instruções de entrega!
-> 6. Entregue este README.md dentro da pasta raiz do seu repositório de entrega. 
-
-> Opcional: você pode alterar a formatação do README, mas mantenha todas as informações solicitadas
+# App para Jardim Botanico
 
 ![Screenshot do projeto](https://mdswanson.com/static/chops-ux-step-4.png "Screenshot do projeto").
 
-
 #### Descrição
 
-Preencha aqui uma descrição sucinta do projeto (tema e funcionalidades)
+Este aplicativo irá demonstrar o jardim botânico através do OpenStreetMaps, mostrar todos os pontos de atrações e trilhas que existem no momento. Ele também vai funcionar offline, uma vez que tenha sido aberto online.
 
 #### Deploy
 
-https://docs.google.com/spreadsheets/d/1lNiJ6a0eHgeTUdoVdxou6qfQG5yHZpQzQbkooMeNb94/edit#gid=0
+Deploy do app: https://elc1090.github.io/project4-jardim-botanico-miguel-e-emilio/
 
-Preencha aqui a URL para acesso ao projeto publicado
+Documento com Pontos: https://docs.google.com/spreadsheets/d/1lNiJ6a0eHgeTUdoVdxou6qfQG5yHZpQzQbkooMeNb94/edit#gid=0
 
 #### Testes
 
-Preencha aqui sugestões de tarefas a serem realizadas por usuários testadores (por exemplo, cadastro de usuário, inserção de dados, busca, etc.).
+Abrir o aplicativo, vefiricar o mapa (até que pontos consegue aproximar e afastar), chegar os pontos e trilhas. Se for possível, desligar a rede e tentar acessar offline o app.
 
 
 
 #### Desenvolvedor(es)
-Preencha nomes aqui
+
+Emilio B. Pedrollo e Miguel M. da Silva
 
 
 #### Tecnologias
@@ -48,23 +39,11 @@ https://vitest.dev/
 https://www.cypress.io/
 https://sass-lang.com/
 
-Preencha aqui uma lista detalhada de tecnologias usadas para frontend, backend e persistência de dados
-
 #### Ambiente de desenvolvimento
 
-Preencha aqui uma lista detalhada de ferramentas de desenvolvimento usadas
-
-#### Créditos
-
-Preencha aqui uma lista detalhada de recursos aproveitados no projeto, por exemplo:
-- URL de templates usados
-- URL de icon kits usados
-- Créditos para colegas que colaboraram
+PHPstorm.
 
 #### Bastidores
-
-
-Preencha aqui um breve relato dos bastidores e das particularidades do desenvolvimento do projeto, por exemplo: escolha do tema, algum detalhe marcante sobre as tecnologias usadas/aprendidas, bugs encontrados, alguma parte mais trabalhosa de implementar, etc.
 
 https://datatracker.ietf.org/doc/html/rfc7946
 https://github.com/bmcbride/gps-map
