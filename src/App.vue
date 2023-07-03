@@ -1,85 +1,35 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from '^/HelloWorld.vue'
+import {fetchMarkers, fetchTrails} from "@/markers";
+  import { onBeforeMount } from "vue";
+  import { useStorage } from "@vueuse/core";
+import type { Marker, Trail } from "!/env";
+
+  const markers = useStorage<Marker[]>('markers', [])
+  const trails = useStorage<Trail[]>('trails', [])
+
+  const startFetchers = async () => {
+    fetchTrails()
+        .then((data) => {
+            trails.value = data
+        }, () => { console.warn("Could not fetch trails.") })
+
+    fetchMarkers()
+        .then((data) => {
+          markers.value = data;
+        }, () => { console.warn("Could not fetch markers.") })
+        .finally(() => {
+          // setTimeout(startFetchers, 1000 * 60 * 10)
+        })
+  }
+
+  onBeforeMount(() => {
+    console.log('beforemount')
+    startFetchers()
+  })
+
 </script>
 
+
 <template>
-<!--  <header>-->
-<!--    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />-->
-
-<!--    <div class="wrapper">-->
-<!--      <HelloWorld msg="You did it!" />-->
-
-<!--      <nav>-->
-<!--        <RouterLink to="/start">Home</RouterLink>-->
-<!--        <RouterLink to="/about">About</RouterLink>-->
-<!--      </nav>-->
-<!--    </div>-->
-<!--  </header>-->
-
-  <RouterView />
+    <RouterView :markers="markers" :trails="trails" />
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>

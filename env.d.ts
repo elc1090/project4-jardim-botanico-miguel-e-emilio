@@ -7,9 +7,22 @@ declare module '*.vue' {
 //     export default Vue;
 }
 
+type Trail = {
+    id: number,
+    name?: string,
+    time?: string,
+    desc?: string,
+    points: LatLngExpression[]
+}
+
 type Marker = {
+    id: number,
+    category: string,
+    icon?: string,
     latLng: LatLngExpression,
-    iconUrl: string,
+    iconUrl?: string,
+    name: string,
+    detail?: ?string,
     text: ?string
 }
 
@@ -20,4 +33,10 @@ type TileProvider = {
     attribution: string,
     visible: boolean,
     name: string
+}
+
+type Visit = {
+    id: number,
+    type: string,
+    visited: boolean
 }

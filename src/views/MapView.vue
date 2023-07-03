@@ -1,32 +1,51 @@
 <script setup lang="ts">
 import {
   LMap,
-  LIcon,
   LGeoJson,
   LTileLayer,
   LControlLayers,
-  LMarker,
-  LTooltip,
+  LControl,
+  LControlZoom,
+  LControlScale,
+  LLayerGroup,
 } from "@vue-leaflet/vue-leaflet"
-import { LatLngBounds } from "leaflet"
+import {LatLngBounds} from "leaflet"
+import type { LeafletMouseEvent } from "leaflet"
 import type { PointExpression } from "leaflet"
 import type { FeatureCollection } from "geojson"
-import { ref, onBeforeMount, computed } from "vue";
-import { useStorage } from "@vueuse/core";
+import MyMarker from '@/components/Marker.vue'
+import MyTrail from '@/components/Trail.vue'
+import {ref, onBeforeMount, computed} from "vue";
+import {useRoute, useRouter} from "vue-router"
 import "leaflet/dist/leaflet.css"
-import axios from "axios"
-import type {Marker, TileProvider} from "../../env";
+import type {Marker, TileProvider, Trail} from "!/env";
+import { fetchMarkers } from '@/markers'
 
 const map = ref()
 const zoom = ref(17)
 const iconWidth = ref(25)
 const iconHeight = ref(40)
 const maxBounds = ref(new LatLngBounds([
-  [-29.716500,-53.727300],
-  [-29.721600,-53.732400],
+  [-29.715500,-53.726300],
+  [-29.722600,-53.733400],
 ]))
 const iconUrl = computed(() => `https://placekitten.com/${iconWidth.value}/${iconHeight.value}`)
 const iconSize = computed(():PointExpression => [iconWidth.value, iconHeight.value])
+
+const props = defineProps<{
+  spot: number|null,
+  type?: string|null,
+  markers: Marker[],
+  trails: Trail[],
+}>()
+
+const emits = defineEmits<{
+  'nav-click': []
+  'click-marker': [type:string, id: number]
+}>()
+
+const route = useRoute()
+const router = useRouter()
 
 const log = (a: any) => console.log(a)
 
@@ -49,24 +68,35 @@ const goejson= ref<FeatureCollection>({
   features: []
 })
 
-const markers = useStorage<Marker[]>('markers', [])
+// const markers = useStorage<Marker[]>('markers', [])
+
+
+const mapBuildings = computed<Marker[]>(() => {
+  return props.markers.filter((marker) => marker.category === 'Edificações')
+})
+const mapCollections = computed<Marker[]>(() => {
+  return props.markers.filter((marker) => marker.category === 'Coleções')
+})
+const mapLeisure = computed<Marker[]>(() => {
+  return props.markers.filter((marker) => marker.category === 'Espaço de lazer')
+})
+const mapTrails = computed<Marker[]>(() => {
+  return props.markers.filter((marker) => marker.category === 'Trilha')
+})
+
+const onMapClick = async (event: LeafletMouseEvent, type: string, id: number) => {
+  // debugger
+  console.log('markerClick', id, Number(route.params.id))
+  const path = type === 'point' ? 'local' : 'trilha'
+  if ((path === route.params.type) && (id === Number(route.params.id))) {
+    emits('click-marker', type, id)
+  } else {
+    await router.push(`/${path}/${id}`)
+  }
+}
 
 const collectMarkers = async () => {
-  const sheet_id = import.meta.env.VITE_SHEET_ID
-  const api_key = import.meta.env.VITE_GOOGLE_API_KEY
-  axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${sheet_id}/values:batchGet?ranges=Markers!A2:D100&valueRenderOption=UNFORMATTED_VALUE&key=${api_key}`).then((res) => {
-    let data: Marker[] = []
-    res.data.valueRanges[0].values.forEach((point: any[], index: number) => {
-      data.push({
-        latLng: [ point[0], point[1] ],
-        iconUrl: point[2],
-        text: point[3],
-      })
-    })
-    markers.value = data
-  }, () => {}).finally(() => {
-    setTimeout(collectMarkers, 10000)
-  })
+  fetchMarkers().finally(() => setTimeout(collectMarkers, 1000))
 }
 
 onBeforeMount(() => {
@@ -76,15 +106,27 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="h-screen w-100 bg-red">
+  <div class="h-screen w-100">
     <l-map
         :center="[-29.718902,-53.729616]"
         :zoom="zoom" ref="map"
         :min-zoom="16"
         :max-bounds="[maxBounds.getSouthWest(), maxBounds.getNorthEast()]"
-        @move="log('move')"
+        :options="{zoomControl: false}"
     >
-      <l-control-layers />
+      <l-control position="topleft">
+
+      <v-app-bar-nav-icon
+          variant="elevated"
+          @click.stop="$emit('nav-click')"
+          class="text-green-darken-3"
+      />
+      </l-control>
+      <l-control-layers
+          :collapsed="false"
+      />
+
+      <l-control-scale :metric="true" :imperial="false" position="topright" />
 
       <l-tile-layer
           v-for="provider in tileProvider"
@@ -96,12 +138,60 @@ onBeforeMount(() => {
           :subdomains="provider.subdomains"
           layer-type="base"
       />
-      <l-marker
-          v-for="marker in markers"
-          :lat-lng="marker.latLng">
-        <l-icon :icon-url="marker.iconUrl" :icon-size="iconSize"/>
-        <l-tooltip v-if="marker.text">{{ marker.text }}</l-tooltip>
-      </l-marker>
+
+      <l-layer-group
+          layer-type="overlay"
+          name="Edificações"
+      >
+        <MyMarker
+            v-for="marker in mapBuildings"
+            :spot="type === 'point' ? spot : null"
+            :marker="marker"
+            @on-click="(event, type, id) => onMapClick(event, type, id)"
+        />
+      </l-layer-group>
+
+      <l-layer-group
+          layer-type="overlay"
+          name="Coleções"
+      >
+        <MyMarker
+            v-for="marker in mapCollections"
+            :spot="type === 'point' ? spot : null"
+            :marker="marker"
+            @on-click="(event, type, id) => onMapClick(event, type, id)"
+        />
+      </l-layer-group>
+
+      <l-layer-group
+          layer-type="overlay"
+          name="Espaços de lazer"
+      >
+        <MyMarker
+            v-for="marker in mapLeisure"
+            :spot="type === 'point' ? spot : null"
+            :marker="marker"
+            @on-click="(event, type, id) => onMapClick(event, type, id)"
+        />
+      </l-layer-group>
+
+      <l-layer-group
+          layer-type="overlay"
+          name="Trilhas"
+      >
+<!--        <MyMarker-->
+<!--            v-for="marker in mapTrails"-->
+<!--            :spot="spot"-->
+<!--            :marker="marker"-->
+<!--            @on-click="(event, id) => onMarkerClick(event, id)"-->
+<!--        />-->
+        <MyTrail
+            v-for="trail in trails"
+            :spot="type === 'trail' ? spot : null"
+            :trail="trail"
+            @on-click="(event, type, id) => onMapClick(event, type, id)"
+        />
+      </l-layer-group>
 
 <!--      <l-marker :lat-lng="[-29.718902,-53.729616]" draggable @moveend="log('moveend')">-->
 <!--        <l-icon :icon-url="iconUrl" :icon-size="iconSize" />-->
@@ -112,6 +202,7 @@ onBeforeMount(() => {
 
 <!--      <l-rectangle :bounds="[maxBounds.getSouthWest(), maxBounds.getNorthEast()]"/>-->
       <l-geo-json :geojson="goejson" />
+      <l-control-zoom position="bottomright" ></l-control-zoom>
     </l-map>
   </div>
 </template>

@@ -50,5 +50,7 @@ https://github.com/bmcbride/gps-map
 https://www.npmjs.com/package/leaflet.offline
 https://www.npmjs.com/package/@yaga/leaflet-cached-tile-layer
 
+https://stackoverflow.com/questions/31389586/set-leaflet-js-map-to-display-current-location
+https://liascript.github.io/course/?https://raw.githubusercontent.com/AndreaInfUFSM/elc1090-2023a/master/classes/jbsm/README.md#5
 ---
 Projeto entregue para a disciplina de [Desenvolvimento de Software para a Web](http://github.com/andreainfufsm/elc1090-2023a) em 2023a
