@@ -15,11 +15,10 @@ import type { PointExpression } from "leaflet"
 import type { FeatureCollection } from "geojson"
 import MyMarker from '@/components/Marker.vue'
 import MyTrail from '@/components/Trail.vue'
-import {ref, onBeforeMount, computed} from "vue";
+import {ref, computed} from "vue";
 import {useRoute, useRouter} from "vue-router"
 import "leaflet/dist/leaflet.css"
 import type {Marker, TileProvider, Trail} from "!/env";
-import { fetchMarkers } from '@/markers'
 
 const map = ref()
 const zoom = ref(17)
@@ -94,14 +93,6 @@ const onMapClick = async (event: LeafletMouseEvent, type: string, id: number) =>
     await router.push(`/${path}/${id}`)
   }
 }
-
-const collectMarkers = async () => {
-  fetchMarkers().finally(() => setTimeout(collectMarkers, 1000))
-}
-
-onBeforeMount(() => {
-  collectMarkers()
-})
 
 </script>
 
