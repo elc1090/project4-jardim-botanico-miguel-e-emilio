@@ -1,6 +1,6 @@
 # App para Jardim Botanico
 
-![Screenshot do projeto](https://mdswanson.com/static/chops-ux-step-4.png "Screenshot do projeto").
+![Screenshot do projeto](https://freeimghost.net/i/CNbpe "Screenshot do projeto").
 
 #### Descrição
 
@@ -14,9 +14,7 @@ Documento com Pontos: https://docs.google.com/spreadsheets/d/1lNiJ6a0eHgeTUdoVdx
 
 #### Testes
 
-Abrir o aplicativo, vefiricar o mapa (até que pontos consegue aproximar e afastar), chegar os pontos e trilhas. Se for possível, desligar a rede e tentar acessar offline o app.
-
-
+Form:
 
 #### Desenvolvedor(es)
 
