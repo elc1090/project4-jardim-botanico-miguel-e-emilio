@@ -1,6 +1,6 @@
 # App para Jardim Botanico
 
-![Screenshot do projeto](https://freeimghost.net/i/CNbpe).
+![Screenshot do projeto](/src/assets/screen.png "Screenshot do App").
 
 #### Descrição
 
@@ -14,7 +14,7 @@ Documento com Pontos: https://docs.google.com/spreadsheets/d/1lNiJ6a0eHgeTUdoVdx
 
 #### Testes
 
-Form:
+Form: https://forms.gle/zzUsw5pqoAQUnXmv5
 
 #### Desenvolvedor(es)
 
