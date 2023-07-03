@@ -1,6 +1,6 @@
 # App para Jardim Botanico
 
-![Screenshot do projeto](https://freeimghost.net/i/CNbpe "Screenshot do projeto").
+![Screenshot do projeto](https://freeimghost.net/i/CNbpe).
 
 #### Descrição
 
