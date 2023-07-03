@@ -33,7 +33,6 @@ const onMarkerMouseOut = (event: LeafletMouseEvent) => {
       @mouseout="onMarkerMouseOut($event)"
   >
     <l-popup
-        v-if="trail.desc"
         :options="{
               closeButton: false,
               className:'d-none d-sm-block'
